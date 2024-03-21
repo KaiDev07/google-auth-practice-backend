@@ -84,6 +84,7 @@ const googleLogin = async (req, res) => {
 const refresh = async (req, res) => {
     try {
         const { refreshToken } = req.cookies
+        return res.json({ refreshToken })
 
         const user = await User.refresh(refreshToken)
 
