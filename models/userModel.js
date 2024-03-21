@@ -27,13 +27,13 @@ const userSchema = new Schema({
 
 userSchema.statics.refresh = async function (refreshToken) {
     if (!refreshToken) {
-        throw Error('no cookies my nigga')
+        throw Error('User is not authorized')
     }
     const userData = Token.validateRefreshToken(refreshToken)
     const tokenFromDb = await Token.findToken(refreshToken)
 
     if (!userData || !tokenFromDb) {
-        throw Error('first option error')
+        throw Error('User is not authorized')
     }
 
     const user = await this.findById(userData.id)

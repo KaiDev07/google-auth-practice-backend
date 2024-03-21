@@ -49,6 +49,8 @@ const googleLogin = async (req, res) => {
             res.cookie('refreshToken', tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
+                secure: true,
+                sameSite: 'none',
             })
         } else {
             const password = uuid.v4()
@@ -73,6 +75,8 @@ const googleLogin = async (req, res) => {
             res.cookie('refreshToken', tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
+                secure: true,
+                sameSite: 'none',
             })
         }
         res.status(302).redirect(process.env.CLIENT_URL)
@@ -84,7 +88,6 @@ const googleLogin = async (req, res) => {
 const refresh = async (req, res) => {
     try {
         const { refreshToken } = req.cookies
-        return res.json(req.cookies)
 
         const user = await User.refresh(refreshToken)
 
@@ -100,6 +103,8 @@ const refresh = async (req, res) => {
         res.cookie('refreshToken', tokens.refreshToken, {
             maxAge: 30 * 24 * 60 * 60 * 1000,
             httpOnly: true,
+            secure: true,
+            sameSite: 'none',
         })
 
         res.status(200).json({
