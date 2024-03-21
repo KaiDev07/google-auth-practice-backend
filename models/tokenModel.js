@@ -1,0 +1,43 @@
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+
+const Schema = mongoose.Schema
+
+const tokenSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    refreshToken: {
+        type: String,
+        required: true,
+    },
+})
+
+tokenSchema.statics.savetoken = async function (userId, refreshToken) {
+    const tokenData = await this.findOne({ user: userId })
+    if (tokenData) {
+        tokenData.refreshToken = refreshToken
+        return tokenData.save()
+    }
+    const token = await this.create({ user: userId, refreshToken })
+
+    return token
+}
+
+tokenSchema.statics.validateRefreshToken = function (token) {
+    try {
+        const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+        return userData
+    } catch (error) {
+        return null
+    }
+}
+
+tokenSchema.statics.findToken = async function (refreshToken) {
+    const tokenData = await this.findOne({ refreshToken })
+
+    return tokenData
+}
+
+module.exports = mongoose.model('Token', tokenSchema)
