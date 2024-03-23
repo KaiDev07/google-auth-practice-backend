@@ -3,8 +3,8 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
-import userRoutes from './routes/user'
-import passport from './utils/passport'
+import userRoutes from './routes/user.js'
+import passport from './utils/passport.js'
 
 dotenv.config()
 

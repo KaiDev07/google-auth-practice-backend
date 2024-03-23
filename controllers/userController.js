@@ -1,8 +1,8 @@
 import { genSalt, hash as _hash } from 'bcrypt'
 import { v4 } from 'uuid'
-import User from '../models/userModel'
-import Token from '../models/tokenModel'
-import createTokens from '../utils/createTokens'
+import User from '../models/userModel.js'
+import Token from '../models/tokenModel.js'
+import createTokens from '../utils/createTokens.js'
 import passport from 'passport'
 
 const googleCallback = (req, res) => {

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { googleCallback, refresh } from '../controllers/userController'
+import { googleCallback, refresh } from '../controllers/userController.js'
 
 const router = Router()
 

@@ -1,5 +1,5 @@
 import { Schema as _Schema, model } from 'mongoose'
-import { validateRefreshToken, findToken } from './tokenModel'
+import { validateRefreshToken, findToken } from './tokenModel.js'
 
 const Schema = _Schema
 
