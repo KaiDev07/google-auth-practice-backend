@@ -19,6 +19,8 @@ const googleCallback = (req, res) => {
 const refresh = async (req, res) => {
     if (req.user) {
         res.json({ user: req.user })
+    } else {
+        res.json({ error: 'nothing' })
     }
 }
 
