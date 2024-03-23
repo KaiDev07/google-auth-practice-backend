@@ -17,18 +17,11 @@ export const googleCallback = (req, res) => {
     }
 }
 
-export const googleFunction = async (req, res) => {
+export const googleFunction = (req, res) => {
     try {
-        const response = await axios.get(
-            'https://accounts.google.com/o/oauth2/v2/auth',
-            {
-                params: req.query,
-            }
-        )
-
-        res.send(response)
+        passport.authenticate('google')
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).redirect(process.env.CLIENT_URL)
     }
 }
 
