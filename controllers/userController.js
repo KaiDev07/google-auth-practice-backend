@@ -17,13 +17,13 @@ export const googleCallback = (req, res) => {
     }
 }
 
-// export const googleFunction = (req, res) => {
-//     try {
-//         passport.authenticate('google')
-//     } catch (error) {
-//         res.status(500).redirect(process.env.CLIENT_URL)
-//     }
-// }
+export const googleFunction = (req, res) => {
+    try {
+        passport.authenticate('google', { scope: ['profile', 'email'] })
+    } catch (error) {
+        res.status(500).redirect(process.env.CLIENT_URL)
+    }
+}
 
 export const refresh = async (req, res) => {
     if (req.user) {
