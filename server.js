@@ -1,9 +1,12 @@
-require('dotenv').config()
-const express = require('express')
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
-const mongoose = require('mongoose')
-const userRoutes = require('./routes/user')
+import dotenv from 'dotenv'
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import mongoose from 'mongoose'
+import userRoutes from './routes/user'
+import passport from './utils/passport'
+
+dotenv.config()
 
 const app = express()
 
@@ -18,11 +21,16 @@ mongoose
 
 app.use(express.json())
 app.use(cookieParser())
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', process.env.CLIENT_URL)
+    next()
+})
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
         credentials: true,
     })
 )
+passport(app)
 
 app.use('/user', userRoutes)

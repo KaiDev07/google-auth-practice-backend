@@ -1,14 +1,10 @@
-const express = require('express')
-const {
-    googleLogin,
-    refresh,
-    googleRequest,
-} = require('../controllers/userController')
+import { Router } from 'express'
+import { googleCallback, refresh } from '../controllers/userController'
 
-const router = express.Router()
+const router = Router()
 
-router.post('/request', googleRequest)
-router.get('/oauth', googleLogin)
+router.get('/auth/google/callback', googleCallback)
+// router.get('/oauth', googleLogin)
 router.get('/refresh', refresh)
 
-module.exports = router
+export default router

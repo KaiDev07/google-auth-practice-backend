@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+import { Schema as _Schema, model } from 'mongoose'
+import { verify } from 'jsonwebtoken'
 
-const Schema = mongoose.Schema
+const Schema = _Schema
 
 const tokenSchema = new Schema({
     user: {
@@ -27,7 +27,7 @@ tokenSchema.statics.savetoken = async function (userId, refreshToken) {
 
 tokenSchema.statics.validateRefreshToken = function (token) {
     try {
-        const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+        const userData = verify(token, process.env.JWT_REFRESH_SECRET)
         return userData
     } catch (error) {
         return null
@@ -40,4 +40,4 @@ tokenSchema.statics.findToken = async function (refreshToken) {
     return tokenData
 }
 
-module.exports = mongoose.model('Token', tokenSchema)
+export default model('Token', tokenSchema)
