@@ -5,7 +5,7 @@ import Token from '../models/tokenModel.js'
 import createTokens from '../utils/createTokens.js'
 import passport from 'passport'
 
-const googleCallback = (req, res) => {
+export const googleCallback = (req, res) => {
     try {
         passport.authenticate('google', {
             successRedirect: process.env.CLIENT_URL,
@@ -16,12 +16,10 @@ const googleCallback = (req, res) => {
     }
 }
 
-const refresh = async (req, res) => {
+export const refresh = async (req, res) => {
     if (req.user) {
         res.json({ user: req.user })
     } else {
         res.json({ error: 'nothing' })
     }
 }
-
-export default { googleCallback, refresh }
