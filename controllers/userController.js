@@ -4,6 +4,7 @@ import User from '../models/userModel.js'
 import Token from '../models/tokenModel.js'
 import createTokens from '../utils/createTokens.js'
 import passport from 'passport'
+import axios from 'axios'
 
 export const googleCallback = (req, res) => {
     try {
@@ -13,6 +14,21 @@ export const googleCallback = (req, res) => {
         })
     } catch (error) {
         res.status(500).redirect(process.env.CLIENT_URL)
+    }
+}
+
+export const googleFunction = async (req, res) => {
+    try {
+        const response = await axios.get(
+            'https://accounts.google.com/o/oauth2/v2/auth',
+            {
+                params: req.query,
+            }
+        )
+
+        res.send(response)
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' })
     }
 }
 
