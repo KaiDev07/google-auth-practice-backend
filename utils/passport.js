@@ -24,7 +24,8 @@ const passportUtil = (app) => {
             {
                 clientID: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
-                callbackURL: '/user/auth/google/callback',
+                callbackURL:
+                    'https://googleauthpractice-api.onrender.com/user/auth/google/callback',
                 scope: ['profile', 'email'],
             },
             (accessToken, refreshToken, profile, callback) => {
