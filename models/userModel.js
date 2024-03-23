@@ -1,7 +1,7 @@
-import { Schema as _Schema, model } from 'mongoose'
-import { validateRefreshToken, findToken } from './tokenModel.js'
+import mongoose from 'mongoose'
+import Token from './tokenModel.js'
 
-const Schema = _Schema
+const Schema = mongoose.Schema
 
 const userSchema = new Schema({
     email: {
@@ -32,8 +32,8 @@ userSchema.statics.refresh = async function (refreshToken) {
     if (!refreshToken) {
         throw Error('User is not authorized')
     }
-    const userData = validateRefreshToken(refreshToken)
-    const tokenFromDb = await findToken(refreshToken)
+    const userData = Token.validateRefreshToken(refreshToken)
+    const tokenFromDb = await Token.findToken(refreshToken)
 
     if (!userData || !tokenFromDb) {
         throw Error('User is not authorized')
@@ -44,4 +44,4 @@ userSchema.statics.refresh = async function (refreshToken) {
     return user
 }
 
-export default model('User', userSchema)
+export default mongoose.model('User', userSchema)

@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import express from 'express'
 import { googleCallback, refresh } from '../controllers/userController.js'
 
-const router = Router()
+const router = express.Router()
 
 router.get('/auth/google/callback', googleCallback)
 // router.get('/oauth', googleLogin)
