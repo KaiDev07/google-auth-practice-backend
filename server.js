@@ -4,7 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import userRoutes from './routes/user.js'
-import passport from './utils/passport.js'
+import passportUtil from './utils/passport.js'
 
 dotenv.config()
 
@@ -31,6 +31,6 @@ app.use(
         credentials: true,
     })
 )
-passport(app)
+passportUtil(app)
 
 app.use('/user', userRoutes)

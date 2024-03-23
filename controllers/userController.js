@@ -7,22 +7,14 @@ import passport from 'passport'
 import axios from 'axios'
 
 export const googleCallback = (req, res) => {
-    try {
-        passport.authenticate('google', {
-            successRedirect: process.env.CLIENT_URL,
-            failureRedirect: process.env.CLIENT_URL,
-        })
-    } catch (error) {
-        res.status(500).redirect(process.env.CLIENT_URL)
-    }
+    passport.authenticate('google', {
+        successRedirect: process.env.CLIENT_URL,
+        failureRedirect: process.env.CLIENT_URL,
+    })
 }
 
 export const googleFunction = (req, res) => {
-    try {
-        passport.authenticate('google')
-    } catch (error) {
-        res.status(500).redirect(process.env.CLIENT_URL)
-    }
+    passport.authenticate('google', { scope: ['profile', 'email'] })
 }
 
 export const refresh = async (req, res) => {

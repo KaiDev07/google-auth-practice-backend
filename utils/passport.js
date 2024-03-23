@@ -9,7 +9,6 @@ const passportUtil = (app) => {
                 clientID: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
                 callbackURL: process.env.CALLBACK_URL,
-                scope: ['profile', 'email'],
             },
             (accessToken, refreshToken, profile, callback) => {
                 callback(null, profile)
