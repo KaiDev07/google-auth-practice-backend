@@ -23,9 +23,6 @@ const userSchema = new Schema({
     name: {
         type: String,
     },
-    provider: {
-        type: String,
-    },
 })
 
 userSchema.statics.refresh = async function (refreshToken) {

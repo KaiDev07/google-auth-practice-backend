@@ -1,8 +1,21 @@
-import session from 'cookie-session'
+import session from 'express-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 
 const passportUtil = (app) => {
+    app.use(
+        session({
+            secret: process.env.SESSION_SECRET,
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24 * 7, //1 week
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict',
+            },
+        })
+    )
     passport.use(
         new GoogleStrategy(
             {
@@ -23,19 +36,6 @@ const passportUtil = (app) => {
     passport.deserializeUser((user, done) => {
         done(null, user)
     })
-
-    app.use(
-        session({
-            secret: process.env.SESSION_SECRET,
-            resave: false,
-            saveUninitialized: false,
-            cookie: {
-                maxAge: 1000 * 60 * 60 * 24 * 7, //1 week
-                httpOnly: true,
-                secure: true,
-            },
-        })
-    )
 
     app.use(passport.initialize())
     app.use(passport.session())
