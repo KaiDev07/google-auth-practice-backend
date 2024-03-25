@@ -19,6 +19,7 @@ mongoose
 
 app.use(express.json())
 app.use(cookieParser())
+app.set('trust proxy', true)
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
