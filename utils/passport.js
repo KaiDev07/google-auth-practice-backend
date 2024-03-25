@@ -1,6 +1,8 @@
 import session from 'express-session'
 import passport from 'passport'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import createMemoryStore from 'memorystore'
+const MemoryStore = createMemoryStore(session)
 
 const passportUtil = (app) => {
     app.use(
@@ -14,6 +16,9 @@ const passportUtil = (app) => {
                 secure: true,
                 sameSite: 'strict',
             },
+            store: new MemoryStore({
+                checkPeriod: 86400000, // prune expired entries every 24h
+            }),
         })
     )
     passport.use(

@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt'
 import { v4 } from 'uuid'
 import User from '../models/userModel.js'
-import Token from '../models/tokenModel.js'
-import createTokens from '../utils/createTokens.js'
 
 export const refresh = async (req, res) => {
     if (req.user) {
